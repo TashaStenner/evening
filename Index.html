@@ -30,7 +30,36 @@
         <p class="details">14:00</p>
         <p class="details">26th February 2022</p>
         <p class="details">Bristol Harbour Hotel</p>
-
+        <div id="additional_info">
+            <button class="info_buttons" onclick="toggleGettingThere()">Getting there</button>
+            <button class="info_buttons" onclick="toggleHotel()">Accommodation</button>
+            <button class="info_buttons"onclick="toggleParking()">Parking information</button>
+            <button class="info_buttons" onclick="toggleChildren()" >Children</button>
+            <button class="info_buttons" onclick="toggleGifts()" >Gifts</button>
+            
+        </div>
+          <div id="getting_there" style="display:none">
+            <a href="https://www.harbourhotels.co.uk/bristol">https://www.harbourhotels.co.uk/bristol</a>
+            <p>53-55 Corn St, Bristol BS1 1HT and hotel website</p>
+          </div>
+          <div id="parking" style="display:none">
+            <p>There are a number of NCPs within walking distance to the Bristol Harbour Hotel. The hotel offers a 20% discount at the NCP car park on Nelson Street (BS1 3DB), Which is less than half a mile away from the hotel. A discount voucher can be obtained from the hotel reception and used on departure of the car park.</p>
+          </div>
+          <div id="gifts" style="display:none">
+            <p>Your presence at our wedding is all that we wish for, however, if you want to give a gift, we will be grateful for a cash donation towards our new home renovations.</p>
+            <p>If you would prefer to transfer money we have a joint bank account.
+              <br/>
+              Sort code: 07-08-06
+              <br/>
+              Account no: 24296536</p>
+           </div>
+           <div id="children" style="display:none">
+            <p>We are not inviting young children as we would love for you to relax and enjoy the day, however please speak to us in advance if you need to bring your children.</p>
+          </div>
+          <div id="hotel" style="display:none">
+            <a href="https://www.booking.com/hotel/gb/bristol-harbour.en-gb.html">Booking.com</a>
+            <p>Please contact us directly to see if we have any discounted rooms available at the harbour hotel.</p>
+          </div>
         <div id="rsvp">
           <fieldset class="rsvp">
             <legend>RSVP</legend>
@@ -233,7 +262,7 @@
           x.style.display = "none";
         }
       }
-      
+
     </script>
   </body>
 </html>
