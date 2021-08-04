@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atwill Ralls Wedding</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="icon" type="image/png" href="/bells.png"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  </head>
+  <body>
+    <section class="border">
+      <div class="content">
+        <h1>Kirsty Atwill</h1>
+        <p>and</p>
+        <h1>Phillip Ralls</h1>
+        <p class="invite" id="hide">Invite you to celebrate the joy of their wedding day</p>
+        <p class="details">14:00</p>
+        <p class="details">26th February 2022</p>
+        <p class="details">Bristol Harbour Hotel</p>
+
+        <div id="rsvp">
+          <fieldset class="rsvp">
+            <legend>RSVP</legend>
+            <div>
+              <input id="yes" type="radio" name="rsvp" value="Yes" />
+              <label for="Yes" class="invite"> Yes , i'll be there </label> <br />
+            </div>
+            <div>
+              <input id="no" type="radio" name="rsvp" value="No" />
+              <label for="No" class="invite">No, sorry I can't make it </label>
+            </div>
+          </fieldset>
+          <input class="rsvpSubmit" type="submit" onclick="checkRsvp()" />
+        </div>
+
+        <form id="form">
+          <div class="form-elements">
+            <p class="invite">Glad you can make it!</p>
+            <br />
+            <fieldset class="name">
+              <label for="name" class="invite">Guest Name: </label>
+              <input id="name" name="name" required />
+            </fieldset>
+            <br />
+            <fieldset class="pure-group">
+              <label class="invite" for="diet">Dietary requirements/Allergies: </label>
+              <textarea id="diet" name="diet" rows="6"></textarea>
+            </fieldset>
+            <p class="invite">Send us a silly selfie!</p>
+            <div class="upload-btn-wrapper">
+              <button class="btn">Upload</button>
+              <input
+                id="file"
+                name="file"
+                id="uploadfile"
+                type="file"
+                required
+                accept="image/png, image/jpeg"
+                class="custom-file-input"
+              />
+            </div>
+            <br />
+            <p class="invite" id="uploadComp"></p>
+            <input class="submit" id="submit" type="submit" />
+            <button class="goBack" onclick="goBack()">Go Back</button>
+          </div>
+        </form>
+
+        <form id="noRsvp" id="gform">
+          <p class="invite">Can't attend?</p>
+          <fieldset class="name">
+            <label for="notAttending" class="invite">Guest Name: </label>
+            <input id="notAttending" name="Name" required />
+          </fieldset>
+          <p class="invite" id="uploadComplete"></p>
+          <input class="submit rsvpSubmit" type="submit" />
+          <button class="goBack" onclick="goBack()">Go Back</button>
+        </form>
+      </div>
+    </section>
+
+    <script>
+      let attending;
+
+      let checkRsvp = () => {
+        let coming = document.getElementById("yes").checked;
+        let notComing = document.getElementById("no").checked;
+        let hideRsvp = document.getElementById("rsvp");
+        let displayRsvp = document.getElementById("form");
+        let hideText = document.getElementById("hide");
+        let noRsvp = document.getElementById("noRsvp");
+
+        if (coming === false && notComing === false) {
+          console.log("not answered");
+        } else if (coming == true && notComing == false) {
+          attending = "yes";
+          hideRsvp.style.display = "none";
+          hideText.style.display = "none";
+          displayRsvp.style.display = "flex";
+        } else {
+          attending = "no";
+          hideRsvp.style.display = "none";
+          noRsvp.style.display = "block";
+        }
+
+        console.log(attending);
+      };
+
+      let goBack = () => {
+        let unHideRsvp = document.getElementById("rsvp");
+        let displayRsvp = document.getElementById("form");
+        let hideText = document.getElementById("hide");
+        let noRsvp = document.getElementById("noRsvp");
+
+        noRsvp.style.display = "none";
+        hideText.style.display = "block";
+        displayRsvp.style.display = "none";
+        unHideRsvp.style.display = "block";
+      };
+
+      const form = document.getElementById("form");
+      let complete = document.getElementById("uploadComp");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("in");
+        const file = form.file.files[0];
+        const fr = new FileReader();
+        fr.readAsArrayBuffer(file);
+        fr.onload = (f) => {
+          const url = "https://script.google.com/macros/s/AKfycbzWNqu6fVpqNaXif8CHGBx7UfZGvRSHbEK0Gh73y4aFn8JQWxY/exec";
+
+          const qs = new URLSearchParams({
+            Diet: form.diet.value,
+            Name: form.name.value,
+            filename: form.name.value || file.name,
+            mimeType: file.type,
+          });
+          fetch(`${url}?${qs}`, {
+            method: "POST",
+            body: JSON.stringify([...new Int8Array(f.target.result)]),
+          })
+            .then(
+              (res) => res.json(),
+              (complete.innerHTML = "That's was successful, thank you for letting us know!"),
+              form.reset()
+            )
+            .catch(
+              (err) => console.log(err),
+              (complete.innerHTML = "Thank you for letting us know!"),
+              form.reset()
+            );
+        };
+      });
+
+      let noForm = document.getElementById("noRsvp");
+      let responsePost = document.getElementById("uploadComplete");
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbysLoe-TmUCRIpSa9vprdTzpkruMXRLy9X266zZDrEfV-3UYGar/exec";
+
+      noForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(noForm),  headers: {
+           "Content-Type": "application/json"
+        },  mode: "no-cors" })
+          .then(
+            (response) => (
+              console.log("Ye"),
+              (responsePost.innerHTML = "That's ok, thank you for letting us know!"),
+              noForm.reset()
+            )
+          )
+          .catch(
+            (error) => (
+              (responsePost.innerHTML = "That's ok, thank you for letting us know!"), noForm.reset()
+            )
+          );
+      });
+
+      function toggleGettingThere() {
+        var x = document.getElementById("getting_there");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function toggleHotel() {
+        var x = document.getElementById("hotel");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function toggleParking() {
+        var x = document.getElementById("parking");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function toggleChildren() {
+        var x = document.getElementById("children");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function toggleGifts() {
+        var x = document.getElementById("gifts");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
