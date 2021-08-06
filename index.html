@@ -161,21 +161,20 @@
         unHideRsvp.style.display = "block";
       };
 
-      const form = document.getElementById("form");
+      let attendingForm = document.getElementById("form");
       let complete = document.getElementById("uploadComp");
-      form.addEventListener("submit", (e) => {
+      attendingForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("in");
-        const file = form.file.files[0];
+        const file = attendingForm.file.files[0];
         const fr = new FileReader();
         fr.readAsArrayBuffer(file);
         fr.onload = (f) => {
           const url = "https://script.google.com/macros/s/AKfycbzWNqu6fVpqNaXif8CHGBx7UfZGvRSHbEK0Gh73y4aFn8JQWxY/exec";
 
           const qs = new URLSearchParams({
-            Diet: form.diet.value,
-            Name: form.name.value,
-            filename: form.name.value || file.name,
+            Name: attendingForm.name.value,
+            Diet: attendingForm.diet.value,
+            filename: attendingForm.name.value || file.name,
             mimeType: file.type,
           });
           fetch(`${url}?${qs}`, {
@@ -186,12 +185,12 @@
             .then(
               (res) => res.json(),
               (complete.innerHTML = "Thank you, your name has been submitted as attending. Love Kirsty and Phil"),
-              form.reset()
+              attendingForm.reset()
             )
             .catch(
               (err) => console.log(err),
               (complete.innerHTML = "Thank you, your name has been submitted as attending. Love Kirsty and Phil"),
-              form.reset()
+              attendingForm.reset()
             );
         };
       });
