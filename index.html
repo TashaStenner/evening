@@ -23,10 +23,10 @@
   <body>
     <section class="border">
       <div class="content">
-        <p class="invite" id="hide">You are invited to the reception of</p>
         <h1>Kirsty Jean Atwill</h1>
         <p>&</p>
         <h1>Phillip Anthony Ralls</h1>
+        <p class="invite" id="hide">Invite you to celebrate with them at their wedding reception</p>
         <p class="details">19:00</p>
         <p class="details">Saturday 26th February 2022</p>
         <p class="details">Bristol Harbour Hotel</p>
@@ -40,7 +40,7 @@
         </div>
           <div id="getting_there" style="display:none">
             <a href="https://www.harbourhotels.co.uk/bristol">https://www.harbourhotels.co.uk/bristol</a>
-            <p>53-55 Corn St, Bristol BS1 1HT and hotel website</p>
+            <p>53-55 Corn St, Bristol BS1 1HT</p>
           </div>
           <div id="parking" style="display:none">
             <p>There are a number of NCPs within walking distance to the Bristol Harbour Hotel. The hotel offers a 20% discount at the NCP car park on Nelson Street (BS1 3DB), Which is less than half a mile away from the hotel. A discount voucher can be obtained from the hotel reception and used on departure of the car park.</p>
@@ -54,7 +54,7 @@
               Account no: 24296536</p>
            </div>
            <div id="children" style="display:none">
-            <p>We are not inviting young children as we would love for you to relax and enjoy the day, however please speak to us in advance if you need to bring your children.</p>
+            <p>We are not inviting young children as we would love for you to relax and enjoy the day. However, please speak to us in advance if you need to bring your children.</p>
           </div>
           <div id="hotel" style="display:none">
             <a href="https://www.booking.com/hotel/gb/bristol-harbour.en-gb.html">Booking.com</a>
@@ -65,14 +65,14 @@
             <legend>RSVP</legend>
             <div>
               <input id="yes" type="radio" name="rsvp" value="Yes" />
-              <label for="Yes" class="invite"> Yes , i'll be there </label> <br />
+              <label for="Yes" class="invite"> Yes , I'll be there </label> <br />
             </div>
             <div>
               <input id="no" type="radio" name="rsvp" value="No" />
               <label for="No" class="invite">No, sorry I can't make it </label>
             </div>
           </fieldset>
-          <p class="rsvp_reply">Please RSVP by 26TH November 2021</p>
+          <p class="rsvp_reply">Please RSVP by 26th November 2021</p>
           <input class="rsvpSubmit" type="submit" onclick="checkRsvp()" />
         </div>
 
@@ -116,7 +116,7 @@
             <input id="notAttending" name="Name" required />
           </fieldset>
           <p class="invite" id="uploadComplete"></p>
-          <input class="submit rsvpSubmit" type="submit" />
+          <input class="submit rsvpSubmit" type="submit" value="Submit non attendance" />
           <button class="goBack" onclick="goBack()">Go Back</button>
         </form>
       </div>
@@ -184,12 +184,12 @@
           })
             .then(
               (res) => res.json(),
-              (complete.innerHTML = "That's was successful, thank you for letting us know!"),
+              (complete.innerHTML = "Thank you, your name has been submitted as attending. Love Kirsty and Phil"),
               form.reset()
             )
             .catch(
               (err) => console.log(err),
-              (complete.innerHTML = "Thank you for letting us know!"),
+              (complete.innerHTML = "Thank you, your name has been submitted as attending. Love Kirsty and Phil"),
               form.reset()
             );
         };
@@ -208,13 +208,13 @@
           .then(
             (response) => (
               console.log("Ye"),
-              (responsePost.innerHTML = "That's ok, thank you for letting us know!"),
+              (responsePost.innerHTML = "Thank you, your name has been submitted as not attending. Love Kirsty and Phil"),
               noForm.reset()
             )
           )
           .catch(
             (error) => (
-              (responsePost.innerHTML = "That's ok, thank you for letting us know!"), noForm.reset()
+              (responsePost.innerHTML = "Thank you, your name has been submitted as not attending. Love Kirsty and Phil"), noForm.reset()
             )
           );
       });
