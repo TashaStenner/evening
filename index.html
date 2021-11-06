@@ -104,7 +104,7 @@
             </div>
             <p id="uploadedFile" class="invite"></p>
             <br />
-            <p class="invite" id="uploadComp"></p>
+            <p class="invite" id="uploadComp" style="display:none"></p>
             <input class="submit" id="submit" type="submit" />
             <button class="goBack" onclick="goBack()">Go Back</button>
           </div>
@@ -156,6 +156,8 @@
         let hideText = document.getElementById("hide");
         let noRsvp = document.getElementById("noRsvp");
         let infoArea = document.getElementById( 'uploadedFile' );
+        let complete = document.getElementById("uploadComp");
+
 
 
         noRsvp.style.display = "none";
@@ -164,6 +166,7 @@
         unHideRsvp.style.display = "block";
         infoArea.style.display = "none";
         infoArea.textContent = '';
+        complete.style.display = "none";
       };
 
       let attendingForm = document.getElementById("form");
@@ -189,7 +192,8 @@
           })
             .then(
               (res) => res.json(),
-              (complete.innerHTML = "Thank you, your name has been submitted as attending. Love Kirsty and Phil"),
+              (complete.style.display = "block",
+              complete.innerHTML = "Thank you, your name has been submitted as attending. Love Kirsty and Phil"),
               attendingForm.reset()
             )
             .catch(
