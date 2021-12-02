@@ -97,7 +97,6 @@
                 name="file"
                 id="uploadfile"
                 type="file"
-                required
                 accept="image/png, image/jpeg"
                 class="custom-file-input"
               />
@@ -173,7 +172,14 @@
       let complete = document.getElementById("uploadComp");
       attendingForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        const file = attendingForm.file.files[0];
+        console.log(attendingForm.file.files.length)
+        let file = attendingForm.file.files[0];
+        if (file == undefined) {
+          let blob = new Blob([""], { type: "image/png" });
+          blob["lastModifiedDate"] = "";
+          blob["name"] = "No Image Sent";
+          file = blob;
+        }
         const fr = new FileReader();
         fr.readAsArrayBuffer(file);
         fr.onload = (f) => {
